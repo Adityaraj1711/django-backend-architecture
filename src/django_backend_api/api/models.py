@@ -36,7 +36,6 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-
 class UserProfileManager(BaseUserManager):
     """Helps Django work with our custom user model."""
 
