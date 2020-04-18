@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class UserProfileManager(BaseUserManager):
@@ -83,4 +84,35 @@ class ProfileFeedItem(models.Model):
         """Return the model as a string."""
 
         return self.status_text
+
+
+class Skills(models.Model):
+    """ Skills for each individual """
+
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    language = models.CharField(default='', max_length=30)
+    rate = models.IntegerField(default=1, validators=[MaxValueValidator(10), MinValueValidator(1)])
+
+
+class College(models.Model):
+    """ College details for each user """
+
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    college_name = models.CharField(default='', max_length=200)
+    college_address = models.CharField(default='', max_length=400)
+
+
+class Portfolio(models.Model):
+    """ Portfolio details update """
+
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    name = models.CharField(default='', max_length=250)
+    created_on = models.DateTimeField(auto_now_add=True)
+    email = models.EmailField(default='xyz@abc.com')
+    skills = models.ManyToManyField('Skills')
+
+    def __str__(self):
+        """ Return the model as name of the user """
+
+        return self.name
 

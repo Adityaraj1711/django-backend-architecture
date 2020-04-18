@@ -6,17 +6,21 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import filters
+from rest_framework import generics
 from . import serializers
 from . import models
 from . import permission
+
 
 class HelloApiView(APIView):
     """Test API View."""
 
     def get(self, request, format=None):
         """Returns a list of APIView features."""
-
+        print('*' * 50)
+        print(self.kwargs["pk"], '*'*50)
         an_apiview = [
             'Uses HTTP methods as functions (get, post, patch, put, delete)',
             'Is similar to a traditional Django View',
@@ -117,3 +121,54 @@ class LoginViewSet(viewsets.ViewSet):
         """Use the ObtainAuthToken APIView to validate and create a token."""
 
         return ObtainAuthToken().post(request)
+
+
+class UserProfileFeedViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating profile feed items."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.ProfileFeedItemSerializer
+    queryset = models.ProfileFeedItem.objects.all()
+    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return self.queryset.filter(user_profile=self.request.user)
+        return self.queryset
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+        serializer.save(user_profile=self.request.user)
+
+
+class PortfolioViewSet(generics.ListAPIView):
+    """Handles creating, reading and updating profile feed items."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.PortfolioSerializer
+    queryset = models.Portfolio.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+
+    def get_queryset(self):
+        return self.queryset.filter(name=self.kwargs['username'])
+
+    def list(self, request, *args, **kwargs):
+        """ appends the status of request """
+        queryset = self.filter_queryset(self.get_queryset())
+        summary = {}
+        summary['details_count'] = queryset.filter(name=self.kwargs['username']).count()
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            data = {'summary': summary, 'data': serializer.data}
+            return self.get_paginated_response(data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        data = {'summary': summary, 'data': serializer.data}
+        return Response(data)
+
+    # def perform_create(self, serializer):
+    #     """Sets the user profile to the logged in user."""
+    #     serializer.save(user_profile=self.request.user)
+
