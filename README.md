@@ -18,3 +18,13 @@ api/projects/
     methods - GET, POST
 api/projects/1
     methods - PUT, DELETE
+
+
+api/user/<user_name>/
+    Only one portfolio
+    user_name is unique
+    GET request
+api/portfolio/
+    GET_OR_CREATE
+
+

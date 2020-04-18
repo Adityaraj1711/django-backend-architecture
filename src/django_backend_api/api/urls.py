@@ -10,10 +10,14 @@ router.register('hello-viewset', views.HelloViewSet, 'hello-viewset')
 router.register('profile', views.UserProfileViewSet)
 router.register('login', views.LoginViewSet, 'login')
 router.register('feed', views.UserProfileFeedViewSet)
+router.register('college', views.CollegeViewSet)
+router.register('skill', views.SkillViewSet)
 # router.register('<int:pk>', views.PortfolioViewSet)
+router.register('portfolio-update', views.PostPortfolioDetailsViewSet)
 
 urlpatterns = [
     url(r'^hello-view/<username>', views.HelloApiView.as_view()),
     path("user/<username>", views.PortfolioViewSet.as_view(), name="portfolio_list"),
+    path("user/<username>/<int:pk>", views.PortfolioDetailViewSet.as_view(), name="portfolio_detail"),
     url(r'', include(router.urls)),
 ]

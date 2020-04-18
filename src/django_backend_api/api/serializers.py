@@ -22,10 +22,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             name=validated_data['name']
         )
-
         user.set_password(validated_data['password'])
         user.save()
-
         return user
 
 
@@ -38,12 +36,30 @@ class ProfileFeedItemSerializer(serializers.ModelSerializer):
         extra_kwargs = {'user_profile': {'read_only': True}}
 
 
-class PortfolioSerializer(serializers.ModelSerializer):
+class SkillSerializer(serializers.ModelSerializer):
+    """A serializer for skill set and its rating."""
+
+    class Meta:
+        model = models.Skill
+        fields = '__all__'
+        extra_kwargs = {'user_profile': {'read_only': True}}
+
+
+class CollegeSerializer(serializers.ModelSerializer):
+    """A serializer for college details."""
+
+    class Meta:
+        model = models.College
+        fields = '__all__'
+        extra_kwargs = {'user_profile': {'read_only': True}}
+
+
+class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
     """A serializer for portfolio feed items."""
 
     class Meta:
         model = models.Portfolio
-        fields = '__all__'
+        fields = ('url', 'name', 'created_on', 'email', 'skill', 'college')
         extra_kwargs = {'user_profile': {'read_only': True}}
-
+        depth = 1
 

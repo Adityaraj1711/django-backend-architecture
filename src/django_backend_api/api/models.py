@@ -33,6 +33,8 @@ class UserProfileManager(BaseUserManager):
 
         return user
 
+import uuid
+
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """
@@ -41,7 +43,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     """
 
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -86,12 +88,15 @@ class ProfileFeedItem(models.Model):
         return self.status_text
 
 
-class Skills(models.Model):
+class Skill(models.Model):
     """ Skills for each individual """
 
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     language = models.CharField(default='', max_length=30)
     rate = models.IntegerField(default=1, validators=[MaxValueValidator(10), MinValueValidator(1)])
+
+    def __str__(self):
+        return self.language
 
 
 class College(models.Model):
@@ -101,15 +106,19 @@ class College(models.Model):
     college_name = models.CharField(default='', max_length=200)
     college_address = models.CharField(default='', max_length=400)
 
+    def __str__(self):
+        return self.college_name
+
 
 class Portfolio(models.Model):
     """ Portfolio details update """
 
-    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    user_profile = models.OneToOneField('UserProfile', on_delete=models.CASCADE)
     name = models.CharField(default='', max_length=250)
     created_on = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(default='xyz@abc.com')
-    skills = models.ManyToManyField('Skills')
+    skill = models.ManyToManyField('Skill')
+    college = models.ManyToManyField('College', null=True)
 
     def __str__(self):
         """ Return the model as name of the user """

@@ -142,7 +142,7 @@ class UserProfileFeedViewSet(viewsets.ModelViewSet):
 
 
 class PortfolioViewSet(generics.ListAPIView):
-    """Handles creating, reading and updating profile feed items."""
+    """Handles reading portfolios for all the users by username """
 
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.PortfolioSerializer
@@ -150,13 +150,15 @@ class PortfolioViewSet(generics.ListAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly, )
 
     def get_queryset(self):
-        return self.queryset.filter(name=self.kwargs['username'])
+        if len(models.Portfolio.objects.filter(user_profile__name=self.kwargs['username'])) > 0:
+            id = models.Portfolio.objects.filter(user_profile__name=self.kwargs['username']).last().id
+            return self.queryset.filter(user_profile__name=self.kwargs['username'], id=id)
+        return self.queryset.filter(user_profile__name=self.kwargs['username'])
 
     def list(self, request, *args, **kwargs):
         """ appends the status of request """
         queryset = self.filter_queryset(self.get_queryset())
-        summary = {}
-        summary['details_count'] = queryset.filter(name=self.kwargs['username']).count()
+        summary = {'details_count': queryset.filter(user_profile__name=self.kwargs['username']).count()}
 
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -168,7 +170,67 @@ class PortfolioViewSet(generics.ListAPIView):
         data = {'summary': summary, 'data': serializer.data}
         return Response(data)
 
-    # def perform_create(self, serializer):
-    #     """Sets the user profile to the logged in user."""
-    #     serializer.save(user_profile=self.request.user)
 
+class PortfolioDetailViewSet(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Portfolio.objects.all()
+    serializer_class = serializers.PortfolioSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+
+
+class PostPortfolioDetailsViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating portfolio details for logged in users."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.PortfolioSerializer
+    queryset = models.Portfolio.objects.all()
+    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+
+    def get_queryset(self):
+        return self.queryset.filter(user_profile=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(user_profile=self.request.user)
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+        if (len(models.Portfolio.objects.filter(user_profile__id=self.request.user.id))) == 0:
+            serializer.save(user_profile=self.request.user)
+        else:
+            raise Exception('Multiple objects is created')
+
+
+class SkillViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating skill set for logged in users."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.SkillSerializer
+    queryset = models.Skill.objects.all()
+    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return self.queryset.filter(user_profile=self.request.user)
+        return self.queryset
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+        serializer.save(user_profile=self.request.user)
+
+
+class CollegeViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating college details for logged in users."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.CollegeSerializer
+    queryset = models.College.objects.all()
+    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return self.queryset.filter(user_profile=self.request.user)
+        return self.queryset
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+        serializer.save(user_profile=self.request.user)
