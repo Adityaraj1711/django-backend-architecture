@@ -138,7 +138,7 @@ class Project(models.Model):
         return self.project
 
 
-class Education(models.Model):
+class College(models.Model):
     """ Education details for each user """
 
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
@@ -191,8 +191,12 @@ class Portfolio(models.Model):
     name = models.CharField(default='', max_length=250)
     created_on = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(default='xyz@abc.com')
-    skill = models.ManyToManyField('Skill')
-    college = models.ManyToManyField('College', null=True)
+    skills = models.ManyToManyField('Skill')
+    education = models.ManyToManyField('College')
+    work_experience = models.ManyToManyField('Company')
+    about = models.ManyToManyField('About')
+    achievement = models.ManyToManyField('Achievement')
+    interest = models.ManyToManyField('Interest')
 
     def __str__(self):
         """ Return the model as name of the user """
