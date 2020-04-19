@@ -164,6 +164,7 @@ class Interest(models.Model):
 
 class Achievement(models.Model):
     """ Achievement model for portfolio """
+
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     achievement = models.CharField(default='', max_length=100)
     when = models.DateTimeField(auto_now_add=True, null=True)
@@ -175,6 +176,7 @@ class Achievement(models.Model):
 
 class Certification(models.Model):
     """ certificate model for the respective user"""
+
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     certificate = models.CharField(default='', max_length=100)
     about = models.CharField(default='', max_length=100)
