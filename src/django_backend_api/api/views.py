@@ -241,3 +241,108 @@ class CollegeViewSet(viewsets.ModelViewSet):
         portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
         portfolio_obj.college.add(college_obj)
         portfolio_obj.save()
+
+
+class CompanyViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating college details for logged in users."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.CompanySerializer
+    queryset = models.Company.objects.all()
+    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return self.queryset.filter(user_profile=self.request.user)
+        return self.queryset
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+        company_obj = serializer.save(user_profile=self.request.user)
+        portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
+        portfolio_obj.work_experience.add(company_obj)
+        portfolio_obj.save()
+
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating college details for logged in users."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.ProjectSerializer
+    queryset = models.Project.objects.all()
+    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return self.queryset.filter(user_profile=self.request.user)
+        return self.queryset
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+        project_obj = serializer.save(user_profile=self.request.user)
+        portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
+        portfolio_obj.college.add(project_obj)
+        portfolio_obj.save()
+
+
+class InterestViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating college details for logged in users."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.InterestSerializer
+    queryset = models.Interest.objects.all()
+    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return self.queryset.filter(user_profile=self.request.user)
+        return self.queryset
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+        interest_obj = serializer.save(user_profile=self.request.user)
+        portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
+        portfolio_obj.college.add(interest_obj)
+        portfolio_obj.save()
+
+
+class AchievementViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating college details for logged in users."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.AchievementSerializer
+    queryset = models.Achievement.objects.all()
+    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return self.queryset.filter(user_profile=self.request.user)
+        return self.queryset
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+        achievement_obj = serializer.save(user_profile=self.request.user)
+        portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
+        portfolio_obj.college.add(achievement_obj)
+        portfolio_obj.save()
+
+
+class CertificationViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating college details for logged in users."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.CertificationSerializer
+    queryset = models.Certification.objects.all()
+    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return self.queryset.filter(user_profile=self.request.user)
+        return self.queryset
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+        certification_obj = serializer.save(user_profile=self.request.user)
+        portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
+        portfolio_obj.college.add(certification_obj)
+        portfolio_obj.save()
