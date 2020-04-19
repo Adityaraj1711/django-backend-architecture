@@ -281,7 +281,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         """Sets the user profile to the logged in user."""
         project_obj = serializer.save(user_profile=self.request.user)
         portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
-        portfolio_obj.college.add(project_obj)
+        portfolio_obj.project.add(project_obj)
         portfolio_obj.save()
 
 
@@ -302,7 +302,7 @@ class InterestViewSet(viewsets.ModelViewSet):
         """Sets the user profile to the logged in user."""
         interest_obj = serializer.save(user_profile=self.request.user)
         portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
-        portfolio_obj.college.add(interest_obj)
+        portfolio_obj.interest.add(interest_obj)
         portfolio_obj.save()
 
 
@@ -323,7 +323,7 @@ class AchievementViewSet(viewsets.ModelViewSet):
         """Sets the user profile to the logged in user."""
         achievement_obj = serializer.save(user_profile=self.request.user)
         portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
-        portfolio_obj.college.add(achievement_obj)
+        portfolio_obj.achievement.add(achievement_obj)
         portfolio_obj.save()
 
 
@@ -344,5 +344,26 @@ class CertificationViewSet(viewsets.ModelViewSet):
         """Sets the user profile to the logged in user."""
         certification_obj = serializer.save(user_profile=self.request.user)
         portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
-        portfolio_obj.college.add(certification_obj)
+        portfolio_obj.certification.add(certification_obj)
+        portfolio_obj.save()
+
+
+class AboutViewSet(viewsets.ModelViewSet):
+    """Handles creating, reading and updating college details for logged in users."""
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.AboutSerializer
+    queryset = models.About.objects.all()
+    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return self.queryset.filter(user_profile=self.request.user)
+        return self.queryset
+
+    def perform_create(self, serializer):
+        """Sets the user profile to the logged in user."""
+        about_obj = serializer.save(user_profile=self.request.user)
+        portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
+        portfolio_obj.about.add(about_obj)
         portfolio_obj.save()

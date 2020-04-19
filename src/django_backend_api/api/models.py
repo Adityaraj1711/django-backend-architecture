@@ -199,6 +199,8 @@ class Portfolio(models.Model):
     about = models.ManyToManyField('About')
     achievement = models.ManyToManyField('Achievement')
     interest = models.ManyToManyField('Interest')
+    certification = models.ManyToManyField('Certification')
+    project = models.ManyToManyField('Project')
 
     def __str__(self):
         """ Return the model as name of the user """
