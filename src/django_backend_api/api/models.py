@@ -193,7 +193,7 @@ class Portfolio(models.Model):
     name = models.CharField(default='', max_length=250)
     created_on = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(default='xyz@abc.com')
-    skills = models.ManyToManyField('Skill')
+    skill = models.ManyToManyField('Skill')
     education = models.ManyToManyField('College')
     work_experience = models.ManyToManyField('Company')
     about = models.ManyToManyField('About')

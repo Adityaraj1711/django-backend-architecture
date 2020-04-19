@@ -113,7 +113,8 @@ class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Portfolio
-        fields = ('url', 'name', 'created_on', 'email', 'skill', 'college')
+        fields = ('url', 'name', 'created_on', 'email', 'skill', 'work_experience', 'about', 'achievement', 'interest',
+                  'certification', 'project')
         extra_kwargs = {'user_profile': {'read_only': True}}
         depth = 1
 

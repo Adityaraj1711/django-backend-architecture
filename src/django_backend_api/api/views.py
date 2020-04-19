@@ -239,7 +239,7 @@ class CollegeViewSet(viewsets.ModelViewSet):
         """Sets the user profile to the logged in user."""
         college_obj = serializer.save(user_profile=self.request.user)
         portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
-        portfolio_obj.college.add(college_obj)
+        portfolio_obj.education.add(college_obj)
         portfolio_obj.save()
 
 
