@@ -54,6 +54,60 @@ class CollegeSerializer(serializers.ModelSerializer):
         extra_kwargs = {'user_profile': {'read_only': True}}
 
 
+class AboutSerializer(serializers.ModelSerializer):
+    """A serializer for about section."""
+
+    class Meta:
+        model = models.About
+        fields = '__all__'
+        extra_kwargs = {'user_profile': {'read_only': True}}
+
+
+class CompanySerializer(serializers.ModelSerializer):
+    """A serializer for work experience or company model."""
+
+    class Meta:
+        model = models.Company
+        fields = '__all__'
+        extra_kwargs = {'user_profile': {'read_only': True}}
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+    """A serializer for project model details."""
+
+    class Meta:
+        model = models.Project
+        fields = '__all__'
+        extra_kwargs = {'user_profile': {'read_only': True}}
+
+
+class InterestSerializer(serializers.ModelSerializer):
+    """A serializer for interest model."""
+
+    class Meta:
+        model = models.Interest
+        fields = '__all__'
+        extra_kwargs = {'user_profile': {'read_only': True}}
+
+
+class AchievementSerializer(serializers.ModelSerializer):
+    """A serializer for achievements."""
+
+    class Meta:
+        model = models.Achievement
+        fields = '__all__'
+        extra_kwargs = {'user_profile': {'read_only': True}}
+
+
+class CertificationSerializer(serializers.ModelSerializer):
+    """A serializer for certificate details."""
+
+    class Meta:
+        model = models.Certification
+        fields = '__all__'
+        extra_kwargs = {'user_profile': {'read_only': True}}
+
+
 class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
     """A serializer for portfolio feed items."""
 
