@@ -215,7 +215,11 @@ class SkillViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
-        serializer.save(user_profile=self.request.user)
+
+        skill_obj = serializer.save(user_profile=self.request.user)
+        portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
+        portfolio_obj.skill.add(skill_obj)
+        portfolio_obj.save()
 
 
 class CollegeViewSet(viewsets.ModelViewSet):
@@ -233,4 +237,7 @@ class CollegeViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
-        serializer.save(user_profile=self.request.user)
+        college_obj = serializer.save(user_profile=self.request.user)
+        portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
+        portfolio_obj.college.add(college_obj)
+        portfolio_obj.save()

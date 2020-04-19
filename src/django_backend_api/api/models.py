@@ -92,22 +92,96 @@ class Skill(models.Model):
     """ Skills for each individual """
 
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
-    language = models.CharField(default='', max_length=30)
+    skill = models.CharField(default='', max_length=30)
     rate = models.IntegerField(default=1, validators=[MaxValueValidator(10), MinValueValidator(1)])
 
     def __str__(self):
-        return self.language
+        return self.rate
 
 
-class College(models.Model):
-    """ College details for each user """
+class About(models.Model):
+    """ about the logged in user """
+
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    highlights = models.CharField(default='', max_length=100)
+    about = models.CharField(default='', max_length=900)
+
+    def __str__(self):
+        return self.highlights
+
+
+class Company(models.Model):
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    company = models.CharField(default='', max_length=50)
+    address = models.CharField(default='', max_length=200)
+    about = models.CharField(default='', max_length=500, null=True)
+    company_url = models.URLField(max_length=400, null=True)
+    joining_date = models.DateTimeField(auto_now_add=True, null=True)
+    to_date = models.DateTimeField(auto_now_add=True, null=True)
+    currently_working = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.company
+
+
+class Project(models.Model):
+    """ List projects for portfolio """
+
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    project = models.CharField(default='', max_length=100)
+    about = models.CharField(default='', max_length=400, null=True)
+    feature = models.CharField(default='', max_length=200)
+    tech_stack = models.CharField(default='', max_length=100)
+    project_url = models.URLField(max_length=400, null=True)
+
+    def __str__(self):
+        return self.project
+
+
+class Education(models.Model):
+    """ Education details for each user """
 
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     college_name = models.CharField(default='', max_length=200)
     college_address = models.CharField(default='', max_length=400)
+    grade = models.CharField(default='0.0 GPA', max_length=10, null=True)
+    degree = models.CharField(default='', max_length=50, null=True)
+    from_date = models.DateTimeField(auto_now_add=True, null=True)
+    to_date = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.college_name
+
+
+class Interest(models.Model):
+    """ List Interest/Hobbies """
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    interest = models.CharField(default='', max_length=100)
+
+    def __str__(self):
+        return self.interest
+
+
+class Achievement(models.Model):
+    """ Achievement model for portfolio """
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    achievement = models.CharField(default='', max_length=100)
+    when = models.DateTimeField(auto_now_add=True, null=True)
+    where = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.achievement
+
+
+class Certification(models.Model):
+    """ certificate model for the respective user"""
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    certificate = models.CharField(default='', max_length=100)
+    about = models.CharField(default='', max_length=100)
+    certificate_url = models.URLField(max_length=400)
+
+    def __str__(self):
+        return self.certificate
 
 
 class Portfolio(models.Model):
@@ -122,6 +196,6 @@ class Portfolio(models.Model):
 
     def __str__(self):
         """ Return the model as name of the user """
-
         return self.name
+
 
