@@ -5,9 +5,12 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.serializers import AuthTokenSerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import filters
 from rest_framework import generics
+from django.shortcuts import render
+from django.contrib.auth.models import AnonymousUser
 from . import serializers
 from . import models
 from . import permission
@@ -130,8 +133,12 @@ class UserProfileFeedViewSet(viewsets.ModelViewSet):
     permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
 
     def get_queryset(self):
+        print(self.request.user, type(self.request.user))
         if self.action == 'list':
-            return self.queryset.filter(user_profile=self.request.user)
+            if self.request.user.is_authenticated:
+                return self.queryset.filter(user_profile=self.request.user)
+            else:
+                return self.queryset.none()
         return self.queryset
 
     def perform_create(self, serializer):
@@ -185,7 +192,10 @@ class PostPortfolioDetailsViewSet(viewsets.ModelViewSet):
     permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
 
     def get_queryset(self):
-        return self.queryset.filter(user_profile=self.request.user)
+        if self.request.user.is_authenticated:
+            return self.queryset.filter(user_profile=self.request.user)
+        else:
+            return self.queryset.none()
 
     def perform_update(self, serializer):
         serializer.save(user_profile=self.request.user)
@@ -208,7 +218,10 @@ class SkillViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         if self.action == 'list':
-            return self.queryset.filter(user_profile=self.request.user)
+            if self.request.user.is_authenticated:
+                return self.queryset.filter(user_profile=self.request.user)
+            else:
+                return self.queryset.none()
         return self.queryset
 
     def perform_create(self, serializer):
@@ -226,16 +239,20 @@ class CollegeViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.CollegeSerializer
     queryset = models.College.objects.all()
-    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+    permission_classes = (permission.PostOwnStatus, IsAuthenticated)
 
     def get_queryset(self):
         if self.action == 'list':
-            return self.queryset.filter(user_profile=self.request.user)
+            if self.request.user.is_authenticated:
+                return self.queryset.filter(user_profile=self.request.user)
+            else:
+                return self.queryset.none()
         return self.queryset
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
         college_obj = serializer.save(user_profile=self.request.user)
+        print(college_obj)
         portfolio_obj = models.Portfolio.objects.get(user_profile__id=self.request.user.id)
         portfolio_obj.education.add(college_obj)
         portfolio_obj.save()
@@ -247,11 +264,14 @@ class CompanyViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.CompanySerializer
     queryset = models.Company.objects.all()
-    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+    permission_classes = (permission.PostOwnStatus, IsAuthenticated)
 
     def get_queryset(self):
         if self.action == 'list':
-            return self.queryset.filter(user_profile=self.request.user)
+            if self.request.user.is_authenticated:
+                return self.queryset.filter(user_profile=self.request.user)
+            else:
+                return self.queryset.none()
         return self.queryset
 
     def perform_create(self, serializer):
@@ -268,11 +288,14 @@ class ProjectViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.ProjectSerializer
     queryset = models.Project.objects.all()
-    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+    permission_classes = (permission.PostOwnStatus, IsAuthenticated)
 
     def get_queryset(self):
         if self.action == 'list':
-            return self.queryset.filter(user_profile=self.request.user)
+            if self.request.user.is_authenticated:
+                return self.queryset.filter(user_profile=self.request.user)
+            else:
+                return self.queryset.none()
         return self.queryset
 
     def perform_create(self, serializer):
@@ -293,7 +316,10 @@ class InterestViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         if self.action == 'list':
-            return self.queryset.filter(user_profile=self.request.user)
+            if self.request.user.is_authenticated:
+                return self.queryset.filter(user_profile=self.request.user)
+            else:
+                return self.queryset.none()
         return self.queryset
 
     def perform_create(self, serializer):
@@ -310,11 +336,14 @@ class AchievementViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.AchievementSerializer
     queryset = models.Achievement.objects.all()
-    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+    permission_classes = (permission.PostOwnStatus, IsAuthenticated)
 
     def get_queryset(self):
         if self.action == 'list':
-            return self.queryset.filter(user_profile=self.request.user)
+            if self.request.user.is_authenticated:
+                return self.queryset.filter(user_profile=self.request.user)
+            else:
+                return self.queryset.none()
         return self.queryset
 
     def perform_create(self, serializer):
@@ -331,11 +360,14 @@ class CertificationViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.CertificationSerializer
     queryset = models.Certification.objects.all()
-    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+    permission_classes = (permission.PostOwnStatus, IsAuthenticated)
 
     def get_queryset(self):
         if self.action == 'list':
-            return self.queryset.filter(user_profile=self.request.user)
+            if self.request.user.is_authenticated:
+                return self.queryset.filter(user_profile=self.request.user)
+            else:
+                return self.queryset.none()
         return self.queryset
 
     def perform_create(self, serializer):
@@ -352,11 +384,14 @@ class AboutViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.AboutSerializer
     queryset = models.About.objects.all()
-    permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
+    permission_classes = (permission.PostOwnStatus, IsAuthenticated)
 
     def get_queryset(self):
         if self.action == 'list':
-            return self.queryset.filter(user_profile=self.request.user)
+            if self.request.user.is_authenticated:
+                return self.queryset.filter(user_profile=self.request.user)
+            else:
+                return self.queryset.none()
         return self.queryset
 
     def perform_create(self, serializer):

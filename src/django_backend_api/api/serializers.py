@@ -13,7 +13,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UserProfile
         fields = ('id', 'email', 'name', 'password')
-        extra_kwargs = {'password': {'write_only': True}}
+        extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
 
     def create(self, validated_data):
         """Create and return a new user."""
@@ -114,7 +114,7 @@ class PortfolioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Portfolio
         fields = ('url', 'name', 'created_on', 'email', 'skill', 'work_experience', 'about', 'achievement', 'interest',
-                  'certification', 'project')
+                  'certification', 'project', 'education')
         extra_kwargs = {'user_profile': {'read_only': True}}
         depth = 1
 
