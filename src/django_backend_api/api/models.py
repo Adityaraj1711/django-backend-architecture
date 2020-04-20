@@ -185,11 +185,22 @@ class Certification(models.Model):
     def __str__(self):
         return self.certificate
 
+import os
+import uuid
+
+
+def portfolio_avatar_file_path(instance, filename):
+    """Generate file path for new avatar image"""
+    ext = filename.split('.')[-1]
+    filename = str(uuid.uuid4())+ '.' + ext
+    return os.path.join('uploads/avatar/', filename)
+
 
 class Portfolio(models.Model):
     """ Portfolio details update """
 
     user_profile = models.OneToOneField('UserProfile', on_delete=models.CASCADE)
+    avatar = models.ImageField(null=True, upload_to=portfolio_avatar_file_path)
     name = models.CharField(default='', max_length=250)
     created_on = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(default='xyz@abc.com')
