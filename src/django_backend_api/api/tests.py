@@ -3,7 +3,9 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
 from rest_framework import status
+from django.urls import reverse
 
+CREATE_USER_URL = reverse('profile')#'http://127.0.0.1:8080/api/profile/'
 
 class UserProfileTests(TestCase):
 
@@ -38,7 +40,7 @@ class UserProfileTests(TestCase):
     #         name=name
     #     )
 
-CREATE_USER_URL = 'http://127.0.0.1:8080/api/profile/'
+
 
 
 def create_user(**params):
