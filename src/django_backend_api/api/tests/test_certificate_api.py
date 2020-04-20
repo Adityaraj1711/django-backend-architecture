@@ -51,7 +51,7 @@ class PrivateCertificateApiTests(TestCase):
                                    about="Intermediate",
                                    certificate_url="http://127.0.0.1:8080/api/certificates/234",
                                    user_profile=self.user
-        )
+                                )
         res = self.client.get(CERTIFICATE_URL)
         certificate = Certification.objects.all()
         serializer = CertificationSerializer(certificate, many=True)
