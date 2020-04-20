@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -19,8 +18,7 @@ class HelloApiView(APIView):
 
     def get(self, request, format=None):
         """Returns a list of APIView features."""
-        print('*' * 50)
-        print(self.kwargs["pk"], '*'*50)
+
         an_apiview = [
             'Uses HTTP methods as functions (get, post, patch, put, delete)',
             'Is similar to a traditional Django View',

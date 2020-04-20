@@ -18,8 +18,6 @@ router.register('skills', views.SkillViewSet)
 router.register('achievements', views.AchievementViewSet)
 router.register('certificates', views.CertificationViewSet)
 router.register('about', views.AboutViewSet)
-
-# router.register('<int:pk>', views.PortfolioViewSet)
 router.register('portfolio-update', views.PostPortfolioDetailsViewSet)
 
 urlpatterns = [
