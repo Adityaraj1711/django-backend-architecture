@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.core.validators import MaxValueValidator, MinValueValidator
+import os
+import uuid
 
 
 class UserProfileManager(BaseUserManager):
@@ -32,8 +34,6 @@ class UserProfileManager(BaseUserManager):
         user.save(using=self._db)
 
         return user
-
-import uuid
 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
@@ -184,9 +184,6 @@ class Certification(models.Model):
 
     def __str__(self):
         return self.certificate
-
-import os
-import uuid
 
 
 def portfolio_avatar_file_path(instance, filename):
