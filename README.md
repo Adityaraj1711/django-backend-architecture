@@ -1,5 +1,114 @@
-# django-backend-architecture
-Django backend architecture - learn to build backend server for websites for portfolio management like portfoliobox.net
+# Under Construction
+
+# Django Backend Architecture
+Learn to create your own portfolio platform like portfoliobox.net - Open-Source Project By Aditya Raj
+
+## About this open source project
+The open-source project is for the developers who are trying to learn and create an application by following the best practices and paradigms. The project requires familiarity with Python programming language.
+
+---
+## Learn to build a portfolio website backend
+- **This Backend is written using Django Framework** - Django provides simplicity, flexibility, reliability, and scalability. Django has its own naming system for all functions and components
+ - **Feature encapsulation** - Django follows a file naming convention to manage the apps and so different feature are group together.
+ - **Easy to Customize** - Pluggable and easy to customize emitters, parsers, validators, and authenticators.
+ - **Response Handling** - HTTP response handling, content type negotiation using HTTP Accept headers.
+ - **Views for request/response** - Clean, simple, views for Resources, using Django's class-based views.
+ - **Converting data into valid HTTP request** - Powerful serialization engine using Django's rest framework.
+
+
+Ready to use a Vagrant file for getting started with Django projects
+Simpler API mapping for 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## MVC Architecture: Model, View, Controller
+---
+
+
+
+
+# Project outline
+    create profile -> draft details -> publish portfolio <- peers access
+
+# Response request handling schematic diagram
+
+# Concepts used in the project
+ - [Difference between Vagrant and Docker](https://www.vagrantup.com/intro/vs/docker.html)
+    
+    https://djangocentral.com/creating-sitemaps-in-django/
+    https://github.com/AliYmn/djeasy
+    https://stackoverflow.com/questions/53404738/how-to-send-email-with-django-rest-framwork
+    https://github.com/wsvincent/drfx
+## API documentation
+
+
+
+
+
+
+
+
+
+
+
+
+## Required setup
+Development server - 
+
+    - vagrant - tell what type of server we need
+    - virtualbox
+
+Application code -
+
+    - layer 1: python
+    - layer 2: Django - provides feature for creating a standard web app
+    - layer 3: Django rest framework
+
+tools - 
+
+    - atom
+    - git: version control
+    - modheader: modify http header while testing API
+    
+
+## How to Build and run the project
+* Install using vagrant [**Recommended Method**] 
+    * Clone this repo.
+    * Install Vagrant [Find instruction here](https://www.sitepoint.com/getting-started-vagrant-windows/)
+    * Execute `vagrant init` in a terminal from the repo directory.
+    * Execute `vagrant up` to start vagrant box
+    * Execute `vagrant ssh` to connect to Vagrant Box and then enter following commands
+```bash
+    cd /vagrant/
+        
+```    
+
+# Project Directory Structure
+
+--_Directory traversal for API calls_
+
+# API examples
+
+# How to customize according to your use
+
+# Find the project useful
 
 
 services -
