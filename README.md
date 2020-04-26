@@ -70,37 +70,125 @@ Simpler API mapping for
 
 
 ## Required setup
-Development server - 
+For development server - 
 
     - vagrant - tell what type of server we need
     - virtualbox
 
-Application code -
+For application code -
 
     - layer 1: python
     - layer 2: Django - provides feature for creating a standard web app
     - layer 3: Django rest framework
 
-tools - 
+Utility tools - 
 
-    - atom
+    - atom editor
     - git: version control
     - modheader: modify http header while testing API
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## How to Build and run the project
 * Install using vagrant [**Recommended Method**] 
     * Clone this repo.
     * Install Vagrant [Find instruction here](https://www.sitepoint.com/getting-started-vagrant-windows/)
-    * Execute `vagrant init` in a terminal from the repo directory.
     * Execute `vagrant up` to start vagrant box
-    * Execute `vagrant ssh` to connect to Vagrant Box and then enter following commands
-```bash
-    cd /vagrant/
-        
-```    
+    * Execute `vagrant ssh` to connect to Vagrant Box
+    * Install postgresql in vagrant
+    * Create user and database for postgresql
+    ```git bash
+    vagrant@ubuntu-xenial:/vagrant$ cd /vagrant/
+    vagrant@ubuntu-xenial:/vagrant$ sudo su - postgres
+    postgres@ubuntu-xenial:~$ psql
+    postgres=# CREATE USER myprojectuser WITH PASSWORD 'password';
+    postgres=# CREATE DATABASE myproject;
+    postgres=# GRANT ALL PRIVILEGES ON DATABASE myproject to myprojectuser;
+    postgres=# ALTER ROLE myprojectuser SET timezone TO 'UTC';
+    postgres=# ALTER USER myprojectuser CREATEDB;
+    postgres-# \q
+    postgres@ubuntu-xenial:~$ exit
+    ```
+    * Quit postgres and run the following commands from the same bash
+    ```git
+     vagrant@ubuntu-xenial:/vagrant$ cd /vagrant/src/django_backend_api/
+     vagrant@ubuntu-xenial:/vagrant/src/django_backend_api$ python3 manage.py makemigrations
+     vagrant@ubuntu-xenial:/vagrant/src/django_backend_api$ python3 manage.py migrate
+     vagrant@ubuntu-xenial:/vagrant/src/django_backend_api$ python3 manage.py runserver 0.0.0.0:8080
+     ```
+    * The server could now be accessible from your browser at [127.0.0.1:8080](http://127.0.0.1:8080)
 
 # Project Directory Structure
+```
+├── e
+├── get-pip.py
+├── LICENSE
+├── README.md
+├── requirements.txt
+├── src
+│   └── django_backend_api
+│       ├── api
+│       │   ├── admin.py
+│       │   ├── apps.py
+│       │   ├── __init__.py
+│       │   ├── migrations
+│       │   │   ├── 0001_initial.py
+│       │   │   ├── 0002_auto_20200418_2235.py
+│       │   │   ├── __init__.py
+│       │   │   └── __pycache__
+│       │   │       └── __init__.cpython-35.pyc
+│       │   ├── models.py
+│       │   ├── permission.py
+│       │   ├── __pycache__
+│       │   │   ├── __init__.cpython-35.pyc
+│       │   │   └── views.cpython-35.pyc
+│       │   ├── serializers.py
+│       │   ├── tests
+│       │   │   ├── __init__.py
+│       │   │   ├── test_certificate_api.py
+│       │   │   ├── test_college_api.py
+│       │   │   ├── test_portfolio_image_api.py
+│       │   │   ├── test_project_api.py
+│       │   │   └── tests.py
+│       │   ├── urls.py
+│       │   └── views.py
+│       ├── db.sqlite3
+│       ├── django_backend_api
+│       │   ├── __init__.py
+│       │   ├── settings.py
+│       │   ├── urls.py
+│       │   └── wsgi.py
+│       ├── manage.py
+│       └── media
+│           └── uploads
+│               └── avatar
+│                   ├── 362af174-310f-4d00-9a30-26fe8d533fdb.jpg
+│                   └── a2c74d16-06dd-4090-aab9-c7f776d1d411.jpg
+├── ubuntu-xenial-16.04-cloudimg-console.log
+└── Vagrantfile
+
+```
+
 
 --_Directory traversal for API calls_
 
@@ -211,7 +299,6 @@ api/education/
     GET, POST for logged in user
 api/education/<id>
 api/experience/
-
 
 
 
