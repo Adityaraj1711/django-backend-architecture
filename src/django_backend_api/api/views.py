@@ -5,12 +5,9 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.serializers import AuthTokenSerializer
-from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import filters
 from rest_framework import generics
-from django.shortcuts import render
-from django.contrib.auth.models import AnonymousUser
 from . import serializers
 from . import models
 from . import permission
@@ -113,6 +110,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'email')
 
+    def list(self, request, *args, **kwargs):
+        return utils.list_api_query(self)
+
 
 class LoginViewSet(viewsets.ViewSet):
     """Checks email and password and returns an auth token."""
@@ -121,7 +121,6 @@ class LoginViewSet(viewsets.ViewSet):
 
     def create(self, request):
         """Use the ObtainAuthToken APIView to validate and create a token."""
-
         return ObtainAuthToken().post(request)
 
 

@@ -7,7 +7,7 @@ from . import views
 
 router = DefaultRouter()
 router.register('hello-viewset', views.HelloViewSet, 'hello-viewset')
-router.register('profile', views.UserProfileViewSet)
+router.register('signup', views.UserProfileViewSet)
 router.register('login', views.LoginViewSet, 'login')
 router.register('feed', views.UserProfileFeedViewSet)
 router.register('education', views.CollegeViewSet)
