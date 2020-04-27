@@ -14,6 +14,7 @@ from django.contrib.auth.models import AnonymousUser
 from . import serializers
 from . import models
 from . import permission
+from . import utils
 
 
 class HelloApiView(APIView):
@@ -133,7 +134,6 @@ class UserProfileFeedViewSet(viewsets.ModelViewSet):
     permission_classes = (permission.PostOwnStatus, IsAuthenticatedOrReadOnly)
 
     def get_queryset(self):
-        print(self.request.user, type(self.request.user))
         if self.action == 'list':
             if self.request.user.is_authenticated:
                 return self.queryset.filter(user_profile=self.request.user)
@@ -162,18 +162,7 @@ class PortfolioViewSet(generics.ListAPIView):
 
     def list(self, request, *args, **kwargs):
         """ appends the status of request """
-        queryset = self.filter_queryset(self.get_queryset())
-        summary = {'details_count': queryset.filter(user_profile__name=self.kwargs['username']).count()}
-
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            data = {'summary': summary, 'data': serializer.data}
-            return self.get_paginated_response(data)
-
-        serializer = self.get_serializer(queryset, many=True)
-        data = {'summary': summary, 'data': serializer.data}
-        return Response(data)
+        return utils.list_portfolio(self)
 
 
 class PortfolioDetailViewSet(generics.RetrieveUpdateDestroyAPIView):
@@ -196,6 +185,9 @@ class PostPortfolioDetailsViewSet(viewsets.ModelViewSet):
             return self.queryset.filter(user_profile=self.request.user)
         else:
             return self.queryset.none()
+
+    def list(self, request, *args, **kwargs):
+        return utils.list_api_query(self)
 
     def perform_update(self, serializer):
         serializer.save(user_profile=self.request.user)
@@ -224,6 +216,9 @@ class SkillViewSet(viewsets.ModelViewSet):
                 return self.queryset.none()
         return self.queryset
 
+    def list(self, request, *args, **kwargs):
+        return utils.list_api_query(self)
+
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
 
@@ -248,6 +243,9 @@ class CollegeViewSet(viewsets.ModelViewSet):
             else:
                 return self.queryset.none()
         return self.queryset
+
+    def list(self, request, *args, **kwargs):
+        return utils.list_api_query(self)
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
@@ -274,6 +272,9 @@ class CompanyViewSet(viewsets.ModelViewSet):
                 return self.queryset.none()
         return self.queryset
 
+    def list(self, request, *args, **kwargs):
+        return utils.list_api_query(self)
+
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
         company_obj = serializer.save(user_profile=self.request.user)
@@ -298,6 +299,9 @@ class ProjectViewSet(viewsets.ModelViewSet):
                 return self.queryset.none()
         return self.queryset
 
+    def list(self, request, *args, **kwargs):
+        return utils.list_api_query(self)
+
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
         project_obj = serializer.save(user_profile=self.request.user)
@@ -321,6 +325,9 @@ class InterestViewSet(viewsets.ModelViewSet):
             else:
                 return self.queryset.none()
         return self.queryset
+
+    def list(self, request, *args, **kwargs):
+        return utils.list_api_query(self)
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
@@ -370,6 +377,9 @@ class CertificationViewSet(viewsets.ModelViewSet):
                 return self.queryset.none()
         return self.queryset
 
+    def list(self, request, *args, **kwargs):
+        return utils.list_api_query(self)
+
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
         certification_obj = serializer.save(user_profile=self.request.user)
@@ -393,6 +403,9 @@ class AboutViewSet(viewsets.ModelViewSet):
             else:
                 return self.queryset.none()
         return self.queryset
+
+    def list(self, request, *args, **kwargs):
+        return utils.list_api_query(self)
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
