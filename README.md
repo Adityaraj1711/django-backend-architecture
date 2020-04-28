@@ -11,7 +11,7 @@ The project's main aim is to serve a complete set of API that could be used and 
 ---
 ## Learn to build a portfolio website backend
 Features that are taken into consideration while building.
-- **This Backend is written using Django Framework** - Django provides simplicity, flexibility, reliability, and scalability. Django has its own naming system for all functions and components
+- **Backend written using Django Framework** - Django provides simplicity, flexibility, reliability, and scalability. Django has its own naming system for all functions and components
  - **Easy to Customize** - Pluggable and easy to customize emitters, parsers, validators, and authenticators.
  - **Response Handling** - HTTP response handling, content type negotiation using HTTP Accept headers.
  - **Views for request/response** - Clean, simple, views for Resources, using Django's class-based views.
@@ -56,8 +56,10 @@ Features that are taken into consideration while building.
 ## Concepts used in the project
  - [Difference between Vagrant and Docker](https://www.vagrantup.com/intro/vs/docker.html)
  - [Creating a sitemap](https://djangocentral.com/creating-sitemaps-in-django/)
-    https://stackoverflow.com/questions/53404738/how-to-send-email-with-django-rest-framwork
-    https://github.com/wsvincent/drfx
+ - [All about DRF's viewset](http://www.tomchristie.com/rest-framework-2-docs/api-guide/viewsets)
+ - [Authentication vs Authorization](https://afteracademy.com/blog/authentication-vs-authorization)
+ - [Extending Django's user model](https://testdriven.io/blog/django-custom-user-model/)
+ - [Writing tests in Django](https://docs.djangoproject.com/en/3.0/topics/testing/overview/)
 ## API documentation
 
 
@@ -407,3 +409,7 @@ Utility tools -
 ### Find the project useful? ❤️
 Support it by clicking the ⭐ button on the upper right of this page. ✌️
 
+<p align="center"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Adityaraj1711/django-backend-architecture?style=social"></p>
+
+
+#
