@@ -411,8 +411,6 @@ Utility tools -
 
 
 
-
-## How to customize according to your use
 ### Find the project useful? ❤️
 Support it by clicking the ⭐ button on the upper right of this page. ✌️
 
