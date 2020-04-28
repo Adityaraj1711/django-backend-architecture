@@ -136,6 +136,7 @@ Utility tools -
 
 ## Project Directory Structure
 ```
+.
 ├── e
 ├── get-pip.py
 ├── LICENSE
@@ -149,9 +150,9 @@ Utility tools -
 │       │   ├── __init__.py
 │       │   ├── migrations
 │       │   │   ├── 0001_initial.py
-│       │   │   ├── 0002_auto_20200418_2235.py
 │       │   │   ├── __init__.py
 │       │   │   └── __pycache__
+│       │   │       ├── 0001_initial.cpython-35.pyc
 │       │   │       └── __init__.cpython-35.pyc
 │       │   ├── models.py
 │       │   ├── permission.py
@@ -159,27 +160,41 @@ Utility tools -
 │       │   │   ├── __init__.cpython-35.pyc
 │       │   │   └── views.cpython-35.pyc
 │       │   ├── serializers.py
+│       │   ├── sitemaps.py
 │       │   ├── tests
 │       │   │   ├── __init__.py
+│       │   │   ├── public_user_api_test.py
+│       │   │   ├── __pycache__
+│       │   │   │   ├── __init__.cpython-35.pyc
+│       │   │   ├── test_about_api.py
 │       │   │   ├── test_certificate_api.py
 │       │   │   ├── test_college_api.py
 │       │   │   ├── test_portfolio_image_api.py
 │       │   │   ├── test_project_api.py
-│       │   │   └── tests.py
+│       │   │   ├── tests.py
+│       │   │   └── test_user_profiles.py
 │       │   ├── urls.py
+│       │   ├── utils.py
 │       │   └── views.py
 │       ├── db.sqlite3
 │       ├── django_backend_api
 │       │   ├── __init__.py
+│       │   ├── __pycache__
+│       │   │   ├── __init__.cpython-35.pyc
+│       │   │   └── wsgi.cpython-35.pyc
 │       │   ├── settings.py
 │       │   ├── urls.py
 │       │   └── wsgi.py
 │       ├── manage.py
 │       └── media
 │           └── uploads
-│               └── avatar
-│                   ├── 362af174-310f-4d00-9a30-26fe8d533fdb.jpg
-│                   └── a2c74d16-06dd-4090-aab9-c7f776d1d411.jpg
+│               ├── avatar
+│               │   ├── 362af174-310f-4d00-9a30-26fe8d533fdb.jpg
+│               │   ├── 825d95dc-efc4-40d7-8954-8e775864348c.PNG
+│               │   └── a2c74d16-06dd-4090-aab9-c7f776d1d411.jpg
+│               ├── Django-Architecture-Diagram.jpg
+│               ├── project outline.png
+│               └── schematic diagram and development.png
 ├── ubuntu-xenial-16.04-cloudimg-console.log
 └── Vagrantfile
 
