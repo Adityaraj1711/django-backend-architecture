@@ -62,8 +62,10 @@ def detail_api_query(query, request):
     summary = {}
     if status.HTTP_201_CREATED:
         summary['status'] = 'success'
+        summary['statusCode'] = status.HTTP_201_CREATED
     else:
         summary['status'] = 'error'
+        summary['statusCode'] = status.HTTP_400_BAD_REQUEST
     data = {
         'summary': summary,
         'data': serializer.data

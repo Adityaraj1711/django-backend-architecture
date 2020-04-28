@@ -113,6 +113,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return utils.list_api_query(self)
 
+    def create(self, request, *args, **kwargs):
+        return utils.detail_api_query(self, request)
+
 
 class LoginViewSet(viewsets.ViewSet):
     """Checks email and password and returns an auth token."""

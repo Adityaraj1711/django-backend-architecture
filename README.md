@@ -72,7 +72,7 @@ Simpler API mapping for
 ## Required setup
 For development server - 
 
-    - vagrant - tell what type of server we need
+    - vagrant - tells what type of server we need
     - virtualbox
 
 For application code -
@@ -81,12 +81,12 @@ For application code -
     - layer 2: Django - provides feature for creating a standard web app
     - layer 3: Django rest framework
 
-Utility tools - 
+Utility tools -
 
     - atom editor
     - git: version control
     - modheader: modify http header while testing API
-    
+
 
 
 
@@ -110,7 +110,7 @@ Utility tools -
 
 
 ## How to Build and run the project
-* Install using vagrant [**Recommended Method**] 
+* Install using vagrant [**Recommended Method**]
     * Clone this repo.
     * Install Vagrant [Find instruction here](https://www.sitepoint.com/getting-started-vagrant-windows/)
     * Execute `vagrant up` to start vagrant box
@@ -192,13 +192,121 @@ Utility tools -
 
 --_Directory traversal for API calls_
 
-# API examples
-
-# How to customize according to your use
-
-# Find the project useful
 
 
+
+
+
+
+## API examples
+* Signup
+    * Method and Header
+    ```
+    POST /api/signup/
+    Authorization: Basic Og==
+    Content-Type: application/json
+    Host: 127.0.0.1:8080
+    accept-encoding: gzip, deflate
+    ```
+    * Request Body
+    ```
+    {
+        email:"testemail@email.com",
+        name:"test",
+        password:"test123",
+    }
+    ```
+    * Response Body: 200
+    ```
+    {
+       "summary" : {
+          "status" : "success",
+          "statusCode" : 201
+       },
+       "data" : {
+          "id" : 1,
+          "email" : "testemail@email.com",
+          "name" : "test"
+       }
+    }
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+* Profile Login
+    * Method and Header
+    ```
+    POST /api/login/
+    Content-Type: application/json
+    token: Token 53cdb081137714c6d0578602f3a5f745a72622d9
+    Authorization: Basic dGVzdGVtYWlsNUBlbWFpbC5jb206dGVzdDEyMw==
+    User-Agent: PostmanRuntime/7.6.0
+    Host: 127.0.0.1:8080
+    ```
+    * Request Body
+    ```
+    {
+       "username" : "testemail5@email.com",
+       "password": "test123"
+    }
+    ```
+    * Response Body
+    ```
+    {
+       "token" : "<authentication_token>"
+    }
+    ```
+* Create/Update about section
+   * Methods and Headers
+   ```
+   POST /api/about/
+   Authorization: Token <authentication_token>
+   User-Agent: PostmanRuntime/7.6.0
+   Host: 127.0.0.1:8080
+   ```
+   * Request Body
+   ```
+   {
+      "highlights" : "some highlight about logged in user",
+      "about" : "about logged in user"
+   }
+   ```
+   * Response Body
+   ```
+   {
+      "summary" : {
+         "statusCode" : 201,
+         "status" : "success"
+       },
+       "data" : {
+         "id" : 3,
+         "highlights" : "some highlight about logged in user",
+         "about" : "about logged in user",
+         "user_profile" : 1
+       }
+   }
+   ```
+
+
+
+
+
+## How to customize according to your use
+
+### Find the project useful? ❤️
+Support it by clicking the ⭐ button on the upper right of this page. ✌️
+
+#
 services -
 
 api/<user_name>/
