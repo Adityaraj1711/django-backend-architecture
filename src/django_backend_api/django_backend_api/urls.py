@@ -18,10 +18,18 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.sitemaps.views import sitemap
+from api.sitemaps import StaticSitemap
+from api.sitemaps import PortfolioSitemap
 
+
+sitemaps = {
+    'portfolio': PortfolioSitemap(),
+}
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,6 +1,7 @@
 from django.contrib.sitemaps import Sitemap
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from .models import Portfolio
+
 
 class StaticSitemap(Sitemap):
     """ Sitemap for static website pages """
@@ -23,7 +24,7 @@ class PortfolioSitemap(Sitemap):
         return Portfolio.objects.all()
 
     def location(self, obj):
-        return obj.note_full_path
+        return "/api/user/"+obj.user_profile.name
 
     def lastmod(self, obj):
-        return obj.date_modified
+        return obj.created_on
