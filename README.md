@@ -22,25 +22,6 @@ Features that are taken into consideration while building.
  - **Sitemaps** - Added sitemap that facilitates crawlers indexing the site, therefore sitemap plays a crucial role in modern SEO.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## MVC Architecture: Model, View, Controller
 <p align="center">
     <img src="https://raw.githubusercontent.com/Adityaraj1711/django-backend-architecture/master/src/django_backend_api/media/uploads/Django-Architecture-Diagram.jpg">
@@ -75,17 +56,13 @@ Features that are taken into consideration while building.
  - [Authentication vs Authorization](https://afteracademy.com/blog/authentication-vs-authorization)
  - [Extending Django's user model](https://testdriven.io/blog/django-custom-user-model/)
  - [Writing tests in Django](https://docs.djangoproject.com/en/3.0/topics/testing/overview/)
-## API documentation
 
 
 
-
-
-
-
-
-
-
+## You can find the complete API documentation [here](https://documenter.getpostman.com/view/5616249/SzfDxQhJ?version=latest)
+<a href="https://documenter.getpostman.com/view/5616249/SzfDxQhJ?version=latest" target="_blank">
+    <a href = "https://documenter.getpostman.com/view/5616249/SzfDxQhJ?version=latest"><button style="background-color: #4CAF50; margin: 4px 2px; cursor: pointer; padding: 15px 32px;"> View API Docs</buttom></a>
+</a>
 
 
 ## Required setup
@@ -423,3 +400,13 @@ Utility tools -
 ## How to customize according to your use
 ### Find the project useful? ❤️
 Support it by clicking the ⭐ button on the upper right of this page. ✌️
+
+## License
+```
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software, to deal in the Software without restriction, including without limitation the rights to use, copy and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+```
