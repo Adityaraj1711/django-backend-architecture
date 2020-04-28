@@ -52,8 +52,8 @@ class PrivateAboutApiTests(TestCase):
                                    user_profile=self.user
                                 )
         res = self.client.get(ABOUT_URL)
-        certificate = About.objects.all()
-        serializer = AboutSerializer(certificate, many=True)
+        about = About.objects.all()
+        serializer = AboutSerializer(about, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
 
