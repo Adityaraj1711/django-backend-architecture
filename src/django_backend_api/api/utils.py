@@ -1,4 +1,5 @@
 from rest_framework.response import Response
+from rest_framework import status
 
 
 def list_portfolio(query):
@@ -51,3 +52,21 @@ def list_api_query(query):
         'data': serializer.data
     }
     return Response(data)
+
+
+def detail_api_query(query, request):
+    serializer = query.get_serializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    query.perform_create(serializer)
+    headers = query.get_success_headers(serializer.data)
+    summary = {}
+    if status.HTTP_201_CREATED:
+        summary['status'] = 'success'
+    else:
+        summary['status'] = 'error'
+    data = {
+        'summary': summary,
+        'data': serializer.data
+    }
+
+    return Response(data, status=status.HTTP_201_CREATED, headers=headers)

@@ -188,6 +188,9 @@ class PostPortfolioDetailsViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return utils.list_api_query(self)
 
+    def create(self, request, *args, **kwargs):
+        return utils.detail_api_query(self, request)
+
     def perform_update(self, serializer):
         serializer.save(user_profile=self.request.user)
 
@@ -218,6 +221,9 @@ class SkillViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return utils.list_api_query(self)
 
+    def create(self, request, *args, **kwargs):
+        return utils.detail_api_query(self, request)
+
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
 
@@ -245,6 +251,9 @@ class CollegeViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         return utils.list_api_query(self)
+
+    def create(self, request, *args, **kwargs):
+        return utils.detail_api_query(self, request)
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
@@ -274,6 +283,9 @@ class CompanyViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return utils.list_api_query(self)
 
+    def create(self, request, *args, **kwargs):
+        return utils.detail_api_query(self, request)
+
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
         company_obj = serializer.save(user_profile=self.request.user)
@@ -300,6 +312,9 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         return utils.list_api_query(self)
+
+    def create(self, request, *args, **kwargs):
+        return utils.detail_api_query(self, request)
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
@@ -328,6 +343,9 @@ class InterestViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return utils.list_api_query(self)
 
+    def create(self, request, *args, **kwargs):
+        return utils.detail_api_query(self, request)
+
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
         interest_obj = serializer.save(user_profile=self.request.user)
@@ -351,6 +369,12 @@ class AchievementViewSet(viewsets.ModelViewSet):
             else:
                 return self.queryset.none()
         return self.queryset
+
+    def list(self, request, *args, **kwargs):
+        return utils.list_api_query(self)
+
+    def create(self, request, *args, **kwargs):
+        return utils.detail_api_query(self, request)
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
@@ -379,6 +403,9 @@ class CertificationViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         return utils.list_api_query(self)
 
+    def create(self, request, *args, **kwargs):
+        return utils.detail_api_query(self, request)
+
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
         certification_obj = serializer.save(user_profile=self.request.user)
@@ -405,6 +432,9 @@ class AboutViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         return utils.list_api_query(self)
+
+    def create(self, request, *args, **kwargs):
+        return utils.detail_api_query(self, request)
 
     def perform_create(self, serializer):
         """Sets the user profile to the logged in user."""
