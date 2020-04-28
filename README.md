@@ -1,5 +1,3 @@
-# Under Construction
-
 # Django Backend Architecture
 Learn to create your own portfolio platform like portfoliobox.net - Open-Source Project By Aditya Raj
 
@@ -17,7 +15,7 @@ The open-source project is for the developers who are trying to learn and create
 
 
 Ready to use a Vagrant file for getting started with Django projects
-Simpler API mapping for 
+Simpler API mapping for
 
 
 
@@ -51,7 +49,7 @@ Simpler API mapping for
 
 # Concepts used in the project
  - [Difference between Vagrant and Docker](https://www.vagrantup.com/intro/vs/docker.html)
-    
+
     https://djangocentral.com/creating-sitemaps-in-django/
     https://github.com/AliYmn/djeasy
     https://stackoverflow.com/questions/53404738/how-to-send-email-with-django-rest-framwork
@@ -70,7 +68,7 @@ Simpler API mapping for
 
 
 ## Required setup
-For development server - 
+For development server -
 
     - vagrant - tells what type of server we need
     - virtualbox
@@ -190,10 +188,6 @@ Utility tools -
 ```
 
 
---_Directory traversal for API calls_
-
-
-
 
 
 
@@ -201,7 +195,7 @@ Utility tools -
 ## API examples
 * Signup
     * Method and Header
-    ```
+    ```json
     POST /api/signup/
     Authorization: Basic Og==
     Content-Type: application/json
@@ -209,7 +203,7 @@ Utility tools -
     accept-encoding: gzip, deflate
     ```
     * Request Body
-    ```
+    ```json
     {
         email:"testemail@email.com",
         name:"test",
@@ -217,7 +211,7 @@ Utility tools -
     }
     ```
     * Response Body: 200
-    ```
+    ```json
     {
        "summary" : {
           "status" : "success",
@@ -245,7 +239,7 @@ Utility tools -
 
 * Profile Login
     * Method and Header
-    ```
+    ```json
     POST /api/login/
     Content-Type: application/json
     token: Token 53cdb081137714c6d0578602f3a5f745a72622d9
@@ -254,14 +248,14 @@ Utility tools -
     Host: 127.0.0.1:8080
     ```
     * Request Body
-    ```
+    ```json
     {
        "username" : "testemail5@email.com",
        "password": "test123"
     }
     ```
     * Response Body
-    ```
+    ```json
     {
        "token" : "<authentication_token>"
     }
@@ -275,14 +269,14 @@ Utility tools -
    Host: 127.0.0.1:8080
    ```
    * Request Body
-   ```
+   ```json
    {
       "highlights" : "some highlight about logged in user",
       "about" : "about logged in user"
    }
    ```
    * Response Body
-   ```
+   ```json
    {
       "summary" : {
          "statusCode" : 201,
@@ -296,7 +290,111 @@ Utility tools -
        }
    }
    ```
-
+* User's Public Portfolio Body
+   * Methods and Headers
+   ```json
+   HTTP 200 OK
+   GET /api/user/aditya
+   Accept: */*
+   Host: 127.0.0.1:8080
+   Allow: GET, HEAD, OPTIONS
+   Content-Type: application/json
+   ```
+   * Response Body
+   ```
+   {
+	    "summary": {
+	        "details_count": 1,
+	        "status": "success"
+	    },
+	    "data": [
+	        {
+	            "url": "http://127.0.0.1:8080/api/portfolio-update/1/",
+	            "name": "aditya",
+	            "created_on": "2020-04-26T18:34:11.898286Z",
+	            "email": "ad@fsn.cm",
+	            "skill": [
+	                {
+	                    "url": "http://127.0.0.1:8080/api/skills/1/",
+	                    "skill": "some skill",
+	                    "rate": 8,
+	                    "user_profile": "http://127.0.0.1:8080/api/signup/1/"
+	                }
+	            ],
+	            "work_experience": [
+	                {
+	                    "url": "http://127.0.0.1:8080/api/work-experience/1/",
+	                    "company": "some company",
+	                    "address": "some address",
+	                    "about": "about company",
+	                    "company_url": "http://some.company.url/",
+	                    "joining_date": "2020-04-28T18:13:11.879035Z",
+	                    "to_date": "2020-04-28T18:13:11.879056Z",
+	                    "currently_working": true,
+	                    "user_profile": "http://127.0.0.1:8080/api/signup/1/"
+	                }
+	            ],
+	            "about": [
+	                {
+	                    "url": "http://127.0.0.1:8080/api/about/1/",
+	                    "highlights": "some test highlight about user",
+	                    "about": "about the user",
+	                    "user_profile": "http://127.0.0.1:8080/api/signup/1/"
+	                }
+	            ],
+	            "achievement": [
+	                {
+	                    "url": "http://127.0.0.1:8080/api/achievements/1/",
+	                    "achievement": "some user achievement",
+	                    "when": "2020-04-28T18:13:42.168902Z",
+	                    "where": "2020-04-28T18:13:42.168940Z",
+	                    "user_profile": "http://127.0.0.1:8080/api/signup/1/"
+	                }
+	            ],
+	            "interest": [
+	                {
+	                    "url": "http://127.0.0.1:8080/api/interests/1/",
+	                    "interest": "some interest",
+	                    "user_profile": "http://127.0.0.1:8080/api/signup/1/"
+	                }
+	            ],
+	            "certification": [
+	                {
+	                    "url": "http://127.0.0.1:8080/api/certificates/1/",
+	                    "certificate": "some certification",
+	                    "about": "some about",
+	                    "certificate_url": "http://127.0.0.1:8080/api/certificates/",
+	                    "user_profile": "http://127.0.0.1:8080/api/signup/1/"
+	                }
+	            ],
+	            "project": [
+	                {
+	                    "url": "http://127.0.0.1:8080/api/projects/1/",
+	                    "project": "some project",
+	                    "about": "about project",
+	                    "feature": "project feature",
+	                    "tech_stack": "project tech",
+	                    "project_url": "http://127.0.0.1:8080/api/projects/",
+	                    "user_profile": "http://127.0.0.1:8080/api/signup/1/"
+	                }
+	            ],
+	            "education": [
+	                {
+	                    "url": "http://127.0.0.1:8080/api/education/1/",
+	                    "college_name": "some college",
+	                    "college_address": "some address",
+	                    "grade": "CGPA",
+	                    "degree": "some degree",
+	                    "from_date": "2020-04-28T18:12:03.165680Z",
+	                    "to_date": "2020-04-28T18:12:03.165792Z",
+	                    "user_profile": "http://127.0.0.1:8080/api/signup/1/"
+	                }
+	            ],
+	            "avatar": "http://127.0.0.1:8080/media/uploads/avatar/825d95dc-efc4-40d7-8954-8e775864348c.PNG"
+	        }
+	    ]
+	}
+   ```
 
 
 
