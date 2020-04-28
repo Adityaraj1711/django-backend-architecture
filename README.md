@@ -19,6 +19,7 @@ Features that are taken into consideration while building.
  - **Unit tests for modules** - The tests have been written to test the view sets and models with database mocking.
  - **Vagrant file configured** - Ready to use a Vagrant file for getting started with any kind of Django projects.
  - **Feature encapsulation** - Django follows a file naming convention to manage the apps and so different feature are group together.
+ - **Sitemaps** - Added sitemap that facilitates crawlers indexing the site, therefore sitemap plays a crucial role in modern SEO.
 
 
 
@@ -54,9 +55,7 @@ Features that are taken into consideration while building.
 
 ## Concepts used in the project
  - [Difference between Vagrant and Docker](https://www.vagrantup.com/intro/vs/docker.html)
-
-    https://djangocentral.com/creating-sitemaps-in-django/
-    https://github.com/AliYmn/djeasy
+ - [Creating a sitemap](https://djangocentral.com/creating-sitemaps-in-django/)
     https://stackoverflow.com/questions/53404738/how-to-send-email-with-django-rest-framwork
     https://github.com/wsvincent/drfx
 ## API documentation
@@ -88,7 +87,7 @@ Utility tools -
 
     - atom editor
     - git: version control
-    - modheader: modify http header while testing API
+    - modheader: to modify http headers while testing API
 
 
 
@@ -405,9 +404,11 @@ Utility tools -
 
 
 ## How to customize according to your use
-
 ### Find the project useful? ❤️
 Support it by clicking the ⭐ button on the upper right of this page. ✌️
+
+<p align="center"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Adityaraj1711/django-backend-architecture?style=social"></p>
+
 
 #
 services -
