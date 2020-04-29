@@ -132,6 +132,30 @@ Utility tools -
      ```
     * The server could now be accessible from your browser at [127.0.0.1:8080](http://127.0.0.1:8080)
 
+* Direct install
+    * Create a virtual environment.
+    * Clone the repo.
+    * Install postgresql in your system
+    * Create the database and user with the credentials as discussed in the above installation procedure.
+    * Install the requirements by navigating to the root directory of project
+    ```
+    pip3 install -r requirements.txt
+    ```
+    * Now run the following commands after navigating into src/django_backend_api directory
+    ```
+    python3 manage.py makemigrations
+    python3 manage.py migrate
+    ```
+    * Run the tests
+    ```
+    python3 manage.py test
+    ```
+    * Run the server
+    ```
+    python3 manage.py runserver 0.0.0.0:8080
+    ```
+    * Go to the url 127.0.0.1:8080/api
+
 ## Project Directory Structure
 ```
 .
@@ -422,6 +446,10 @@ Support it by clicking the ⭐ button on the upper right of this page. ✌️
 
 ## License
 ```
+
+MIT License
+Copyright (c) 2020 Aditya Raj
+
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software, to deal in the
 Software without restriction, including without limitation the rights to use, copy and/or sell copies of the
 Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -432,6 +460,7 @@ the Software.
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
 THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ```
