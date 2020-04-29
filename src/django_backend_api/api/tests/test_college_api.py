@@ -60,5 +60,5 @@ class PrivateCollegeApiTests(TestCase):
         college = College.objects.all().order_by('-college_name')
         serializer = CollegeSerializer(college, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data, serializer.data)
+        self.assertEqual(res.data['data'], serializer.data)
 
