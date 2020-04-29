@@ -46,8 +46,6 @@ Features that are taken into consideration while building.
 <br>
 
 
-## Response request handling schematic diagram
-
 
 ## Concepts used in the project
  - [Difference between Vagrant and Docker](https://www.vagrantup.com/intro/vs/docker.html)
@@ -409,7 +407,15 @@ Utility tools -
 	}
    ```
 
+### Features that one can work on -
+* To add Search filter for API's.
+* To add Language translator for DRF's messages.
+* Add Social Authentication
 
+
+### Open to Contribute
+Please create issue if something that needs to be worked on or someone having trouble using it.
+This project is open for everyone who wants to bring ideas or contribute.
 
 ### Find the project useful? ❤️
 Support it by clicking the ⭐ button on the upper right of this page. ✌️
