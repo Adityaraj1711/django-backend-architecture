@@ -5,7 +5,7 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from django.urls import reverse
 
-CREATE_USER_URL = reverse('signup')
+CREATE_USER_URL = reverse('userprofile-list')
 
 
 def create_user(**params):
@@ -47,7 +47,7 @@ class PublicUserApiTests(TestCase):
         res = self.client.post(CREATE_USER_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        user = get_user_model().objects.get(**res.data)
+        user = get_user_model().objects.get(**res.data['data'])
         self.assertTrue(
             user.check_password(payload['password'])
         )
