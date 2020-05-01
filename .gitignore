@@ -100,3 +100,6 @@ ENV/
 
 *.sqlite3
 .vagrant
+
+# git files
+.git
