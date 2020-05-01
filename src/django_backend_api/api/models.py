@@ -103,8 +103,8 @@ class About(models.Model):
     """ about the logged in user """
 
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
-    highlights = models.CharField(default='', max_length=100)
-    about = models.CharField(default='', max_length=900)
+    highlights = models.CharField(default='', max_length=200)
+    about = models.CharField(default='', max_length=1000, null=True)
 
     def __str__(self):
         return self.highlights
@@ -112,12 +112,13 @@ class About(models.Model):
 
 class Company(models.Model):
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
-    company = models.CharField(default='', max_length=50)
-    address = models.CharField(default='', max_length=200)
+    company = models.CharField(default='', max_length=100)
+    address = models.CharField(default='', max_length=200, null=True)
     about = models.CharField(default='', max_length=500, null=True)
     company_url = models.URLField(max_length=400, null=True)
     joining_date = models.DateTimeField(auto_now_add=True, null=True)
     to_date = models.DateTimeField(auto_now_add=True, null=True)
+    role = models.CharField(default='', max_length=800, null=True)
     currently_working = models.BooleanField(default=False)
 
     def __str__(self):
@@ -130,8 +131,8 @@ class Project(models.Model):
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     project = models.CharField(default='', max_length=100)
     about = models.CharField(default='', max_length=400, null=True)
-    feature = models.CharField(default='', max_length=200)
-    tech_stack = models.CharField(default='', max_length=100)
+    feature = models.CharField(default='', max_length=200, null=True)
+    tech_stack = models.CharField(default='', max_length=100, null=True)
     project_url = models.URLField(max_length=400, null=True)
 
     def __str__(self):
@@ -143,7 +144,8 @@ class College(models.Model):
 
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     college_name = models.CharField(default='', max_length=200)
-    college_address = models.CharField(default='', max_length=400)
+    major = models.CharField(default='', max_length=100, null=True)
+    college_address = models.CharField(default='', max_length=400, null=True)
     grade = models.CharField(default='0.0 GPA', max_length=10, null=True)
     degree = models.CharField(default='', max_length=50, null=True)
     from_date = models.DateTimeField(auto_now_add=True, null=True)
@@ -156,7 +158,7 @@ class College(models.Model):
 class Interest(models.Model):
     """ List Interest/Hobbies """
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
-    interest = models.CharField(default='', max_length=100)
+    interest = models.CharField(default='', max_length=200)
 
     def __str__(self):
         return self.interest
@@ -166,7 +168,7 @@ class Achievement(models.Model):
     """ Achievement model for portfolio """
 
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
-    achievement = models.CharField(default='', max_length=100)
+    achievement = models.CharField(default='', max_length=500)
     when = models.DateTimeField(auto_now_add=True, null=True)
     where = models.DateTimeField(auto_now_add=True, null=True)
 
@@ -178,9 +180,9 @@ class Certification(models.Model):
     """ certificate model for the respective user"""
 
     user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
-    certificate = models.CharField(default='', max_length=100)
-    about = models.CharField(default='', max_length=100)
-    certificate_url = models.URLField(max_length=400)
+    certificate = models.CharField(default='', max_length=400)
+    about = models.CharField(default='', max_length=400, null=True)
+    certificate_url = models.URLField(max_length=400, null=True)
 
     def __str__(self):
         return self.certificate
@@ -199,8 +201,14 @@ class Portfolio(models.Model):
     user_profile = models.OneToOneField('UserProfile', on_delete=models.CASCADE)
     avatar = models.ImageField(null=True, upload_to=portfolio_avatar_file_path)
     name = models.CharField(default='', max_length=250)
+    address = models.CharField(default='', max_length=500, null=True)
+    mobile = models.CharField(default='', max_length=30, null=True)
+    twitter_link = models.URLField(null=True)
+    linkedin_link = models.URLField(null=True)
+    facebook_link = models.URLField(null=True)
+    github_link = models.URLField(null=True)
     created_on = models.DateTimeField(auto_now_add=True)
-    email = models.EmailField(default='xyz@abc.com')
+    email = models.EmailField(default='xyz@abc.com', null=True)
     skill = models.ManyToManyField('Skill')
     education = models.ManyToManyField('College')
     work_experience = models.ManyToManyField('Company')
