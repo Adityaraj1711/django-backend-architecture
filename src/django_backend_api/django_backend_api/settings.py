@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+import dj_database_url    
 import os
+import django_heroku
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +27,7 @@ SECRET_KEY = 'gzs%2jwo@p9$!k@^7*8*(4nwctuc$h#73chx226a$5x4mp--d#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -72,6 +74,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'django_backend_api.wsgi.application'
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # Database
@@ -136,4 +139,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = 'media/'
-STATIC_ROOT = '/static/'
+# STATIC_ROOT = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
+django_heroku.settings(locals())
